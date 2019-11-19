@@ -4,7 +4,13 @@ import axios from 'axios'
 
 class Gamelist extends React.Component {
   state = {
-    games : []
+    games : [],
+    filtered : false
+  }
+
+  handleFilterGames = () => {
+    this.setState({filtered : !this.state.filtered})
+
   }
 
   handleDelete = (arthur) => {
@@ -26,9 +32,20 @@ class Gamelist extends React.Component {
     
     return(
       <div>
-        {this.state.games.map((game ,i )=>{
+        <input type="button" value={this.state.filtered ? "ALL GAMES" : "BEST GAMES"} onClick={this.handleFilterGames}/>
+
+        {this.state.filtered ? 
+        this.state.games.filter(game => {
+          return game.rating >= 4.5
+        })
+        .map((game ,i )=>{
+          return <Game data = {game} index={i} remove={this.handleDelete}/>
+        })
+        :
+        this.state.games.map((game ,i )=>{
           return <Game data = {game} index={i} remove={this.handleDelete}/>
         })}
+
       </div>
     )
   }

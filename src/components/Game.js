@@ -1,4 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
+
 import './Game.css'
 
 const Game = ({data, index, remove}) =>{
@@ -9,7 +11,9 @@ const Game = ({data, index, remove}) =>{
       <h1>
         {data.name}
       </h1>
-      <img className='gameImg' src={data.background_image} alt={data.name}/>
+      <Link to={`/jeu/screenshots/${data.id}`}>
+        <img className='gameImg' src={data.background_image} alt={data.name}/>
+      </Link> 
       
       <div>
         Genres : 
